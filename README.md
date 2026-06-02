@@ -1,6 +1,6 @@
 # delta\_cw
 
-Coursework on the Delta Manipulator
+Course project "Delta Manipulator"
 
 
 
