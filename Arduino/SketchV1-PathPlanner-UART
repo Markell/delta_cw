@@ -1,0 +1,62 @@
+#include <Servo.h>
+
+Servo ser1, ser2, ser3;
+
+String cmd = "";
+
+void setup() {
+
+  Serial.begin(9600);
+
+  ser1.attach(9);
+  ser2.attach(10);
+  ser3.attach(11);
+
+  // Верхнее положение
+  ser1.writeMicroseconds(2250);
+  ser2.writeMicroseconds(2250);
+  ser3.writeMicroseconds(2250);
+
+  Serial.println("Delta Robot Ready");
+}
+
+void loop() {
+
+  if (Serial.available()) {
+
+    cmd = Serial.readStringUntil('\n');
+    cmd.trim();
+
+    int us1, us2, us3;
+
+    int parsed = sscanf(
+      cmd.c_str(),
+      "US1:%d US2:%d US3:%d",
+      &us1,
+      &us2,
+      &us3
+    );
+
+    if (parsed == 3) {
+
+      // Защита диапазона
+      us1 = constrain(us1, 1500, 2250);
+      us2 = constrain(us2, 1500, 2250);
+      us3 = constrain(us3, 1500, 2250);
+
+      ser1.writeMicroseconds(us1);
+      ser2.writeMicroseconds(us2);
+      ser3.writeMicroseconds(us3);
+
+      Serial.print("Received: ");
+      Serial.print(us1);
+      Serial.print(" ");
+      Serial.print(us2);
+      Serial.print(" ");
+      Serial.println(us3);
+    }
+    else {
+      Serial.println("Parse error");
+    }
+  }
+}
