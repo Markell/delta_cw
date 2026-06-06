@@ -35,7 +35,7 @@ import serial.tools.list_ports
 # =================================================================================================
 
 class DeltaKinematics: 
-	def __init__(self, rod_b=0.2, rod_ee=0.46, r_b=0.24, r_ee=0.095):
+	def __init__(self, rod_b=0.1, rod_ee=0.25, r_b=0.1267, r_ee=0.045):
 		'''
 		configs the robot
 		rod_B = length of the link connected to the base
